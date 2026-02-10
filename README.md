@@ -1,7 +1,5 @@
 # HelpRX
 
-**Turning caregiver panic into precision with Gemini 3.**
-
 HelpRX is an AI safety net that identifies medications, verifies labels via multimodal vision, and calculates safe weight-based doses to prevent pediatric medication errors.
 
 ## The Problem
