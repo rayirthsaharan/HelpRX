@@ -1,0 +1,7 @@
+{
+  "name": "HelpRX",
+  "description": "A symptom analyzer and OTC dosage calculator powered by Gemini.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
