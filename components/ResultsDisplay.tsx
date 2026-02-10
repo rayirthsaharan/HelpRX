@@ -10,6 +10,15 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ result, onReset 
   const isEmergency = result.is_emergency;
   const needsMoreInfo = result.needs_more_info;
 
+  const getSuitabilityColor = (status?: string) => {
+    switch(status) {
+      case 'Yes': return 'text-green-400 border-green-500/50 bg-green-500/10';
+      case 'No': return 'text-red-400 border-red-500/50 bg-red-500/10';
+      case 'Partial': return 'text-yellow-400 border-yellow-500/50 bg-yellow-500/10';
+      default: return 'text-muted-foreground border-white/10 bg-white/5';
+    }
+  };
+
   return (
     <div className="w-full max-w-2xl animate-in fade-in slide-in-from-bottom-4 duration-700">
       
@@ -65,10 +74,41 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ result, onReset 
         </div>
       )}
 
+      {/* Image Analysis Result (New Section) */}
+      {result.identified_medication && !isEmergency && !needsMoreInfo && (
+        <div className="mb-8 overflow-hidden rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md">
+          <div className="border-b border-white/5 bg-white/5 px-6 py-4">
+            <div className="flex items-center justify-between">
+              <h3 className="flex items-center gap-2 text-lg font-semibold text-foreground">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline><path d="M12 18v-6"></path><path d="M8 15h8"></path></svg>
+                Product Analysis
+              </h3>
+              {result.suitability_check && (
+                <span className={`rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wider border ${getSuitabilityColor(result.suitability_check)}`}>
+                  {result.suitability_check === 'Yes' ? 'Suitable' : result.suitability_check === 'No' ? 'Not Recommended' : 'Check Caution'}
+                </span>
+              )}
+            </div>
+          </div>
+          <div className="p-6">
+            <p className="text-lg font-medium text-foreground">{result.identified_medication}</p>
+            
+            {result.specific_calculated_dosage && (
+               <div className="mt-4 rounded-xl border border-primary/20 bg-primary/10 p-4">
+                  <p className="text-xs font-bold uppercase tracking-widest text-primary/80">Calculated Safe Dosage</p>
+                  <p className="mt-1 text-2xl font-bold text-white">{result.specific_calculated_dosage}</p>
+               </div>
+            )}
+          </div>
+        </div>
+      )}
+
       {/* Suggested Options */}
       {!isEmergency && !needsMoreInfo && (
         <div className="mb-8 grid gap-6">
-          <h2 className="text-2xl font-semibold text-foreground">Recommended OTC Options</h2>
+          <h2 className="text-2xl font-semibold text-foreground">
+            {result.identified_medication ? 'Other OTC Options' : 'Recommended OTC Options'}
+          </h2>
           {result.suggested_otc_options.length > 0 ? (
               result.suggested_otc_options.map((option, idx) => (
                 <div key={idx} className="glass-card rounded-2xl p-6 transition-transform hover:scale-[1.01]">

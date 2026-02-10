@@ -7,6 +7,9 @@ export interface OtcOption {
 
 export interface AnalysisResult {
   disclaimer: string;
+  identified_medication?: string;
+  suitability_check?: 'Yes' | 'No' | 'Partial' | 'N/A';
+  specific_calculated_dosage?: string;
   needs_more_info?: boolean;
   clarifying_questions?: string[];
   is_emergency: boolean;
