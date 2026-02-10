@@ -1,20 +1,59 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+HelpRX
+Turning caregiver panic into precision with Gemini 3.
 
-# Run and deploy your AI Studio app
+HelpRX is an AI-powered safety net designed to prevent medication errors. By utilizing the Gemini 3 API, the app identifies appropriate over-the-counter medications, verifies physical labels via multimodal vision, and calculates precise, weight-based dosages to ensure every dose is safe and accurate.
 
-This contains everything you need to run your app locally.
+The Problem
+Every eight minutes in the U.S., a child is rushed to the ER due to a medication error at home. That is over 60,000 pediatric ER visits annually caused by dosing mistakes, confusing labels, or incorrect medication choices during high-stress moments.
 
-View your app in AI Studio: https://ai.studio/apps/drive/1NEYRMCdQCG8hbx54EuZOJOmxDPoOnp0-
+Features
+Symptom-to-Medication Identification: Recommends the correct active ingredients based on symptoms, age, and weight.
 
-## Run Locally
+Multimodal Label Verification: Utilizes Gemini 3 Vision to scan medication bottles, verifying the drug name and concentration to ensure it matches the user's hand.
 
-**Prerequisites:**  Node.js
+Precision Dosing: Performs calculations to provide exact mL doses based on the child's specific weight.
 
+Safety Triage: Automatically scans for red-flag symptoms and triggers immediate emergency alerts to call 911.
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+High-Trust UI: A clean interface designed for clarity and ease of use during emergencies.
+
+Tech Stack
+Engine: Gemini 3 API (Gemini 3 Flash)
+
+Frontend: React, Tailwind CSS, shadcn/ui
+
+Logic: Structured JSON Output, Multimodal Vision Processing
+
+Tools: Google AI Studio, v0.dev
+
+Architecture
+Input Layer: User enters profile data and symptoms or uploads a label image.
+
+Reasoning Layer: Gemini 3 performs a safety triage check, identifies the medication, and calculates the dose.
+
+Output Layer: Data is delivered via Structured JSON to ensure UI stability and accuracy.
+
+How to Run
+Prerequisites
+A Gemini API Key from Google AI Studio
+
+Node.js installed
+
+Installation
+Clone the repository:
+
+Bash
+git clone https://github.com/YOUR_USERNAME/helprx.git
+cd helprx
+Install dependencies:
+
+Bash
+npm install
+Set up your environment variables: Create a .env file in the root directory and add your API key:
+
+Code snippet
+VITE_GEMINI_API_KEY=your_api_key_here
+Start the development server:
+
+Bash
+npm run dev
